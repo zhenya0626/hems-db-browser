@@ -62,33 +62,38 @@ class A202 extends Component {
   render() {
     let is_watching_A202 = -1;
     let state_A202 = -1;
+    let state_name ={
+      0: '平常',
+      1: 'アラート後',
+      2: '確認待ち'
+    }
     return (
       <Fragment>
-      <RoomInfoTable className="A202">
-        <Wrapper>
-          <RoomInfo>ID</RoomInfo>
-          <RoomInfo>表示名</RoomInfo>
-          <RoomInfo>状態</RoomInfo>
-          <RoomInfo>監視</RoomInfo>
-        </Wrapper>
-        {this.state.data.map((room) => {
-          is_watching_A202 = room.is_watching;
-          state_A202 = room.state
-          return <Wrapper key={room.id}>
-            <RoomInfo>{room.id}</RoomInfo>
-            <RoomInfo>{room.name}</RoomInfo>
-            <RoomInfo>{room.state}</RoomInfo>
-            <RoomInfo>{room.is_watching}</RoomInfo>
+      <Flex>
+        <RoomInfoTable className="A202">
+          <Wrapper>
+            <RoomInfo>部屋名</RoomInfo>
+            <RoomInfo>状態</RoomInfo>
+            <RoomInfo>監視</RoomInfo>
           </Wrapper>
-          
-        })}
-      </RoomInfoTable>
+          {this.state.data.map((room) => {
+            is_watching_A202 = room.is_watching;
+            state_A202 = room.state
+            return <Wrapper key={room.id}>
+              <RoomInfo>{room.name}</RoomInfo>
+              <RoomInfo>{state_name[room.state]}</RoomInfo>
+              <RoomInfo>{room.is_watching === 1 ? 'ON':'OFF'}</RoomInfo>
+            </Wrapper>
+            
+          })}
+        </RoomInfoTable>
+        <Buttons>
+          <ChangeStateButton onClick={() => this.postRoomState(0)} active={is_watching_A202 === 0}>授業</ChangeStateButton>
+          <ChangeStateButton onClick={() => this.postRoomState(1)} active={is_watching_A202 === 1}>無駄遣い監視</ChangeStateButton>
+        </Buttons>
+      </Flex>
       <Buttons>
-        <ChangeStateButton onClick={() => this.postRoomState(0)} active={is_watching_A202 === 0}>授業</ChangeStateButton>
-        <ChangeStateButton onClick={() => this.postRoomState(1)} active={is_watching_A202 === 1}>無駄遣い監視</ChangeStateButton>
-      </Buttons>
-      <Buttons>
-        <StateButton down={false} active={state_A202 === 0}>平常時</StateButton>
+        <StateButton down={false} active={state_A202 === 0}>平常</StateButton>
         <StateButton down={true} active={state_A202 === 1}>アラート後</StateButton>
         <StateButton down={false} active={state_A202 === 2}>確認待ち</StateButton>
       </Buttons>
@@ -139,57 +144,80 @@ class A202 extends Component {
     );
   }
 }
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const RoomInfoTable = styled.table`
   margin: 20px;
+  border: 1px;
+  background: #fff;
 `;
-
 
 const Wrapper = styled.tr`
   // display: flex;
   // width: 100vw;
+  :first-child{
+    background: #abaaaa;
+    color: #fff;
+    font-weight: bold;
+  }
 `;
 const RoomInfo = styled.td`
   // margin-right: 20px;
   // min-width: 150px;
+  padding:10px;
+  text-align: center;
+
 `;
 const Buttons = styled.div`
   margin: 10px;
   // min-width: 150px;
   display: flex;
+  justify-content: center;
 `;
 const ChangeStateButton = styled.div`
-  margin: 10px;
-  width: 200px;
+  margin: 0px;
+  width: 100px;
   padding: 10px;
-  height: 30px;
-  border-radius: 10px;
+  height: 30px; 
+  :first-child{
+    border-radius: 10px 0 0 10px;
+    border-right: 0px;
+  }
+  :last-child{
+    border-radius: 0 10px 10px 0;
+  }
   border: 2px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   background: ${props => props.active ? '#72cc00':'#abaaaa'};
   color: ${props => props.active ? '#fff':'#fff'};
+  opacity: ${props => props.active ? '1':'0.6'};
   cursor: pointer;
   font-weight: bold;
 `;
 const StateButton = styled.div`
   margin: 10px;
-  width: 80px;
+  width: 130px;
   padding: 10px;
-  height: 80px;
-  border-radius: 60px;
+  height: 130px;
+  border-radius: 94px;
   border: 2px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   background: ${props => props.active ? '#72cc00':'#abaaaa'};
   color: ${props => props.active ? '#fff':'#fff'};
-  margin-top: ${props => props.down ? '200px':'10px'};
-  cursor: pointer;
+  margin-top: ${props => props.down ? '280px':'10px'};
   font-weight: bold;
+  font-size: 20px;
 `;
 const  Description = styled.div`
   margin-left: 10px;
+  display: none;
 `;
 const PetternWrap = styled.div`
   display: flex;
