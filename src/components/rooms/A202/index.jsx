@@ -94,8 +94,8 @@ class A202 extends Component {
       </Flex>
       <Buttons>
         <StateButton down={false} active={state_A202 === 0}>平常</StateButton>
-        <StateButton down={true} active={state_A202 === 1}>アラート後</StateButton>
-        <StateButton down={false} active={state_A202 === 2}>確認待ち</StateButton>
+        <StateButton down={true} active={state_A202 === 1}>警告後</StateButton>
+        <StateButton down={false} active={state_A202 === 2}>判定</StateButton>
       </Buttons>
       <Description>
         <PetternWrap>
@@ -211,7 +211,7 @@ const StateButton = styled.div`
   justify-content: center;
   background: ${props => props.active ? '#72cc00':'#abaaaa'};
   color: ${props => props.active ? '#fff':'#fff'};
-  margin-top: ${props => props.down ? '280px':'10px'};
+  margin-top: ${props => props.down ? '320px':'40px'};
   font-weight: bold;
   font-size: 20px;
 `;
