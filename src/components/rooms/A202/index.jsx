@@ -93,9 +93,11 @@ class A202 extends Component {
         </Buttons>
       </Flex>
       <Buttons>
-        <StateButton down={false} active={state_A202 === 0}>平常</StateButton>
-        <StateButton down={true} active={state_A202 === 1}>警告後</StateButton>
-        <StateButton down={false} active={state_A202 === 2}>判定</StateButton>
+        <Buttons1>
+          <StateButton down={false} active={state_A202 === 0}>平常</StateButton>
+          <StateButton down={true} active={state_A202 === 1}>警告後</StateButton>
+          <StateButton down={false} active={state_A202 === 2}>判定</StateButton>
+        </Buttons1>
       </Buttons>
       <Description>
         <PetternWrap>
@@ -176,6 +178,16 @@ const Buttons = styled.div`
   // min-width: 150px;
   display: flex;
   justify-content: center;
+
+`;
+const Buttons1 = styled.div`
+  margin: 10px;
+  // min-width: 150px;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 20px;
 `;
 const ChangeStateButton = styled.div`
   margin: 0px;
